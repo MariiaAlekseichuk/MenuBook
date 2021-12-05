@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/fragment_deserts.xml" value="0.1" />
+        <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/fragment_deserts.xml" value="0.22" />
         <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/fragment_lunches.xml" value="0.1" />
         <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/fragment_pizza.xml" value="0.1" />
+        <entry key="..\:/Users/Public/Projects/MenuBook/app/src/main/res/layout/meal_list_item.xml" value="0.22" />
         <entry key="..\:/Users/Public/Projects/MyApplication0/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
         <entry key="..\:/Users/Public/Projects/MyApplication0/app/src/main/res/layout/fragment_code.xml" value="0.1796875" />
         <entry key="..\:/Users/Public/Projects/MyApplication0/app/src/main/res/layout/fragment_geeks.xml" value="0.1796875" />
