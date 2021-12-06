@@ -65,5 +65,11 @@
             android:layout_height="50dp"
             android:text="OK" />
 
+        <Button
+            android:id="@+id/sendEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Send email"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,13 @@
 package mary.alekseichuk.menubook
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sentUserNameButton: Button
     private lateinit var userName: TextView
     private lateinit var ediTextField: EditText
+    private lateinit var sendEmailButton: Button
 
     private val userNameKey = "USER_NAME"
 
@@ -38,7 +42,27 @@ class MainActivity : AppCompatActivity() {
         tab.setupWithViewPager(pager)
 
         setUserName(savedInstanceState)
+        sendEmailClick()
     }
+
+    private fun sendEmailClick() {
+        sendEmailButton = findViewById(R.id.sendEmail)
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+        sendEmailButton.setOnClickListener {
+            emailIntent.apply {
+                type = "text/plain"
+                data = Uri.parse("mailto:") // only email apps should handle this
+                putExtra(Intent.EXTRA_EMAIL, "support@menubook.com")
+                putExtra(Intent.EXTRA_SUBJECT, "My Question")
+                putExtra(Intent.EXTRA_TEXT, "Body Here");
+            }
+            if (emailIntent.resolveActivity(packageManager) != null) {
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+            } else Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT)
+                .show();
+        }
+    }
+
 
     private fun setUserName(savedInstanceState: Bundle?) {
         sentUserNameButton = findViewById(R.id.send_name_button)
