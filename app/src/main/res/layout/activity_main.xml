@@ -14,18 +14,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/user_greeting"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/helloText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello, " />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User" />
+        </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -40,10 +46,10 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -69,7 +75,7 @@
             android:id="@+id/sendEmail"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Send email"/>
-
+            app:icon="@drawable/ic_baseline_mail_24"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
