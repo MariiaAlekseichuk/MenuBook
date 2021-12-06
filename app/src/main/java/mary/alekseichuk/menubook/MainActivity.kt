@@ -2,21 +2,22 @@ package mary.alekseichuk.menubook
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import mary.alekseichuk.menubook.meallist.Meal
-import mary.alekseichuk.menubook.meallist.MealAdapter
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var pager: ViewPager
     private lateinit var tab: TabLayout
 
-    lateinit var pizzasRecyclerView: RecyclerView
+    private lateinit var sentUserNameButton: Button
+    private lateinit var userName: TextView
+    private lateinit var ediTextField: EditText
 
+    private val userNameKey = "USER_NAME"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +32,32 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(LunchesFragment(), "Lunches")
         adapter.addFragment(DesertsFragment(), "Deserts")
 
-        // Adding the Adapter to the ViewPager
+        // adding the Adapter to the ViewPager
         pager.adapter = adapter
-        //bind the viewPager with the TabLayout
+        // bind the viewPager with the TabLayout
         tab.setupWithViewPager(pager)
 
+        setUserName(savedInstanceState)
+    }
 
+    private fun setUserName(savedInstanceState: Bundle?) {
+        sentUserNameButton = findViewById(R.id.send_name_button)
+        userName = findViewById(R.id.userName)
+        ediTextField = findViewById(R.id.ediTextField)
+
+        if (savedInstanceState != null) {
+            userName.text = savedInstanceState.getString(userNameKey)
+        }
+        sentUserNameButton.setOnClickListener {
+            userName.text = ediTextField.text
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putString(userNameKey, userName.text.toString())
+        }
+        super.onSaveInstanceState(outState)
     }
 
 
