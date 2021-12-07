@@ -36,7 +36,6 @@ class PizzasFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-
         return inflate
     }
 
@@ -45,8 +44,10 @@ class PizzasFragment : Fragment() {
             Meal("Margarita", 20),
             Meal("Pepperoni", 19),
             Meal("Double Cheese", 21),
-            Meal("Hawaiian", 18)
+            Meal("Hawaiian", 18),
+            Meal("Super Meat", 30),
+            Meal("Great Pizza", 33),
+            Meal("With shrimps", 38)
         )
     }
-
 }

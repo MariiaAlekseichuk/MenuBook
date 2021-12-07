@@ -13,6 +13,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 
 const val USER_NAME_KEY = "USER_NAME"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var pager: ViewPager
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         pager = findViewById(R.id.viewPager)
         tab = findViewById(R.id.tabs)
         topAppBar = findViewById(R.id.topAppBar)
@@ -35,67 +37,56 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(LunchesFragment(), "Lunches")
         adapter.addFragment(DesertsFragment(), "Deserts")
 
-        // adding the Adapter to the ViewPager
-        pager.adapter = adapter
-        // bind the viewPager with the TabLayout
-        tab.setupWithViewPager(pager)
-
-        //setUserName(savedInstanceState)
-        sendEmailClick()
-
-    }
-
-
-    private fun sendEmailClick() {
+        pager.adapter = adapter // adding the Adapter to the ViewPager
+        tab.setupWithViewPager(pager) // bind the viewPager with the TabLayout
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.sendEmail -> {
                     val emailIntent = Intent(Intent.ACTION_SENDTO)
                     emailIntent.apply {
-                        type = "text/plain"
-                        data = Uri.parse("mailto:") // only email apps should handle this
-                        putExtra(Intent.EXTRA_EMAIL, "support@menubook.com")
-                        putExtra(Intent.EXTRA_SUBJECT, "My Question")
-                        putExtra(Intent.EXTRA_TEXT, "Body Here");
+                        constructEmailIntent();
                     }
                     if (emailIntent.resolveActivity(packageManager) != null) {
                         startActivity(Intent.createChooser(emailIntent, "Send mail..."))
                     } else Toast.makeText(
-                        this,
-                        "There is no email client installed.",
+                        this, "There is no email client installed.",
                         Toast.LENGTH_SHORT
-                    )
-                        .show();
+                    ).show();
 
                     true
                 }
                 R.id.setUserNameMenuButton -> {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                    builder.setTitle("Enter your name here")
-                    val input = EditText(this)
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.inputType = InputType.TYPE_CLASS_TEXT
-                    builder.setView(input)
-                    builder.setPositiveButton(
-                        "OK"
-                    ) { dialog, which ->
-                        userName = input.text.toString()
-                        topAppBar.title = "Hello, $userName!"
-                    }
-                    builder.setNegativeButton(
-                        "Cancel"
-                    ) { dialog, which -> dialog.cancel() }
-
+                    constructBuilder(builder)
                     builder.show()
                     true
                 }
-
                 else -> false
             }
         }
+    }
 
+    private fun constructBuilder(builder: AlertDialog.Builder) {
+        builder.setTitle("Enter your name here")
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("OK") { dialog, which ->
+            userName = input.text.toString()
+            topAppBar.title = "Hello, $userName!"
+        }
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            dialog.cancel()
+        }
+    }
+
+    private fun Intent.constructEmailIntent() {
+        type = "text/plain"
+        data = Uri.parse("mailto:") // only email apps should handle this
+        putExtra(Intent.EXTRA_EMAIL, "support@menubook.com")
+        putExtra(Intent.EXTRA_SUBJECT, "My Question")
+        putExtra(Intent.EXTRA_TEXT, "Body Here")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -104,6 +95,4 @@ class MainActivity : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
     }
-
-
 }
